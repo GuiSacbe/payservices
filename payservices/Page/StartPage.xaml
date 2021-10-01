@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:payservices.ViewModels"
+    x:DataType="viewmodels:StartPageViewModel"
+    x:Class="payservices.Page.StartPage">
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="Seleccione el servicio que desea pagar"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White" FontSize="36"/>
+        </Frame>
+        <Grid RowDefinitions="10">
+            <Button Grid.Row="1"
+                    Command="{Binding PayCommand}"
+                    Text="Electricidad"/>
+            <Button Grid.Row="2"
+                    Text="Telefono"
+                    Command="{Binding PayCommand}"/>
+            <Button Grid.Row="3"
+                    Text="Satelite"
+                    Command="{Binding PayCommand}"/>
+            <Button Grid.Row="4"
+                    Text="Cable"
+                    Command="{Binding PayCommand}"/>
+            <Button Grid.Row="5"
+                    Text="Gas"
+                    Command="{Binding PayCommand}"/>
+            <Button Grid.Row="6"
+                    Text="Hipoteca"
+                    Command="{Binding PayCommand}"/>
+            <Button Grid.Row="7"
+                    Text="Agua"
+                    Command="{Binding PayCommand}"/>
+            <Button Grid.Row="8"
+                    Text="Gobierno"
+                    Command="{Binding PayCommand}"/>
+            <Button Grid.Row="9"
+                    Text="PostPaidCell"
+                    Command="{Binding PayCommand}"/>
+            <Button Grid.Row="10"
+                    Text="MXCell"
+                    Command="{Binding PayCommand}"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>

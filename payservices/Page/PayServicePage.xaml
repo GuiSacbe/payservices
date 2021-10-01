@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:payservices.ViewModels"
+    x:DataType="viewmodels:PayServicePageViewModel"
+    x:Class="payservices.Page.PayServicePage">
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="Seleccione el servicio que desea pagar"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White" FontSize="36"/>
+        </Frame>
+        <Grid RowDefinitions="5">
+            <Picker Grid.Row="1"
+                    Title="Proovedor"
+                    ItemsSource="{Binding Items}"
+                    ItemDisplayBinding="{Binding name}"
+                    SelectedItem="{Binding SelectProvider}"/>
+            <Picker Grid.Row="2"
+                    Title="Recarga"
+                    ItemsSource="{Binding Saldos}"
+                    ItemDisplayBinding="{Binding Monto}"
+                    SelectedItem="{Binding CurrentSaldo}"/>
+            <Entry Grid.Row="3"
+                   Placeholder="Número"
+                   Keyboard="Telephone"
+                   Text="{Binding ServiceProviderRequest.providerAccount}"/>
+            <Entry Grid.Row="5"
+                   Placeholder="Total"
+                   Keyboard="Numeric"
+                   Text="{Binding ServiceProviderRequest.paymentAmount}"/>
+            <Button Grid.Row="6"
+                    Command="{Binding payCommand}"
+                    Text="Pagar"/>
+        </Grid>
+    </StackLayout>
+    
+</ContentPage>
