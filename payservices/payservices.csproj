@@ -22,6 +22,7 @@
     <None Remove="Newtonsoft.Json" />
     <None Remove="Request\" />
     <None Remove="response\" />
+    <None Remove="Behaviors\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Page\" />
@@ -29,5 +30,6 @@
     <Folder Include="Util\" />
     <Folder Include="Request\" />
     <Folder Include="response\" />
+    <Folder Include="Behaviors\" />
   </ItemGroup>
 </Project>

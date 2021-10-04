@@ -11,6 +11,7 @@ namespace payservices.ViewModels
         {
             PayCommand = new Command(() =>
             {
+                
                 Application.Current.MainPage =  new NavigationPage(new PayServicePage());
             });
         }

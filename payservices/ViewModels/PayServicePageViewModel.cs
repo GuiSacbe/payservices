@@ -18,6 +18,17 @@ namespace payservices.ViewModels
         private ObservableCollection<ProviderResponse> items = new ObservableCollection<ProviderResponse>();
         private ServiceProviderPaymentRequest serviceProviderPaymentRequest = new ServiceProviderPaymentRequest();
         private Saldo currentSaldo = new Saldo();
+        private bool isPhone;
+
+        public bool IsPhone
+        {
+            get => isPhone;
+            set
+            {
+                isPhone = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<ProviderResponse> Items
         {
@@ -69,14 +80,18 @@ namespace payservices.ViewModels
 
         public PayServicePageViewModel()
         {
-            LoadProviders();
+            _=LoadProviders();
             payCommand = new Command(async () =>
             {
                 var client = new ArcusClient<ServiceProviderPaymentResponse>();
-                serviceProviderPaymentRequest.accountId = 6073;
+                if (isPhone)
+                    serviceProviderPaymentRequest.paymentAmount = currentSaldo.MontoNumerico;
+                serviceProviderPaymentRequest.accountId = 1;
                 serviceProviderPaymentRequest.providerId = selectProvider.providerId;
+                serviceProviderPaymentRequest.providerAccount = "64687612331";
                 serviceProviderPaymentRequest.paymentCurrency = "MXN";
                 var result = await client.PostAsync(serviceProviderPaymentRequest, EndPoint.serviceProviderPayent);
+                await Application.Current.MainPage.DisplayAlert("Aviso", result.description + "- Codigo de autorización:" + result.authorizationNumber, "Ok");
             });
 
             saldo = new List<Saldo>();
@@ -85,6 +100,8 @@ namespace payservices.ViewModels
             saldo.Add(new Saldo("$50.00", 50));
             saldo.Add(new Saldo("$100.00", 100));
             saldo.Add(new Saldo("$200.00", 200));
+
+            isPhone = true;
         }
 
         public async Task LoadProviders()
@@ -93,6 +110,7 @@ namespace payservices.ViewModels
             {
                 arcusClient = new ArcusClient<List<ProviderResponse>>();
                 var list = await arcusClient.GetAsync(EndPoint.provider);
+                list = list.Where(item => item.providerType.Equals("PostPaidCell")).ToList();
                 foreach(var row in list)
                 {
                     items.Add(row);
